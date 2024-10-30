@@ -1,4 +1,4 @@
-import { Component, Input, computed ,signal } from '@angular/core';
+import { Component, Input,input, computed ,signal } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
 
 // const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length)
@@ -19,10 +19,20 @@ export class UserComponent {
   @Input({required: true}) avatar!: string ;
   @Input({required: true}) name!: string ;
 
+  //writing input.required() tells angular that some value will be set on the variables
+  //these signals are read-only signals, they can't be changed after the input has got it's value
+
+  /* One way to make inputs and get imgPath
+  avatar = input.required<string>();
+  name = input.required<string>();
+  imgPath = computed(() => {
+    return 'assets/users/' + this.avatar();
+  })
+    */
+  
   get imgPath(){
     return 'assets/users/' + this.avatar;
   }
-
   onSelectUser() {
 
   }

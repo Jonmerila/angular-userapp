@@ -13,6 +13,5 @@ import { DUMMY_USERS } from './dummy-users';
 })
 export class AppComponent {
   title = 'first-angular-app';
-
   users = DUMMY_USERS;
 }
