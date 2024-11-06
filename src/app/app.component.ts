@@ -16,7 +16,14 @@ export class AppComponent {
   title = 'first-angular-app';
   users = DUMMY_USERS;
 
+  selectedUserId = "u1";
+  
+  get selectedUser() {
+    return this.users.find((user) => user.id === this.selectedUserId)!;
+    // Adding ! to the end tells typescript that we will always be returning one user
+  }
+
   onSelectUser(id:string){
-    console.log("Select user with id", id);
+    this.selectedUserId = id;
   }
 }
