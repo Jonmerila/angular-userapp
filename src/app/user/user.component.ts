@@ -1,4 +1,4 @@
-import { Component, Input,input, computed ,signal } from '@angular/core';
+import { Component, Input, input, Output, output, computed, EventEmitter ,signal } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
 
 // const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length)
@@ -16,13 +16,25 @@ export class UserComponent {
   //Using @Input on avatar marks avatar as "setable" outside.
   //typescript feature, if you write ! after a variable, we tell ts that 
   //we definetly know that it will be set to some value even though ts can't see it
+  @Input({required: true}) id!:string;
   @Input({required: true}) avatar!: string ;
   @Input({required: true}) name!: string ;
+
+  // @output properties
+  //we name this output select because we are selecting a user to output info from, in this case, tasks.
+  //Unlike input, the select property here will be assigned a initial value ( Event emitter )
+  //Event emitter will allow to emit custom values to any parent component that is intrested.
+  @Output() select = new EventEmitter();
+
+  //You can alternatively make a output function instead:
+  //output function is relatively new, whereas the @Output decorator is the old version.
+  // select = output<string>();
+
 
   //writing input.required() tells angular that some value will be set on the variables
   //these signals are read-only signals, they can't be changed after the input has got it's value
 
-  /* One way to make inputs and get imgPath
+  /* One way to make inputs and get imgPath using signals
   avatar = input.required<string>();
   name = input.required<string>();
   imgPath = computed(() => {
@@ -34,7 +46,9 @@ export class UserComponent {
     return 'assets/users/' + this.avatar;
   }
   onSelectUser() {
-
+    //Emit the value from here
+    //Access the mitted data by using $event in your html file.
+    this.select.emit(this.id);
   }
 }
 // export class UserComponent {
