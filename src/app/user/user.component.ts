@@ -3,6 +3,12 @@ import { DUMMY_USERS } from '../dummy-users';
 
 // const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length)
 
+type User = {
+  id: string;
+  avatar: string;
+  name: string;
+}
+
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -16,9 +22,10 @@ export class UserComponent {
   //Using @Input on avatar marks avatar as "setable" outside.
   //typescript feature, if you write ! after a variable, we tell ts that 
   //we definetly know that it will be set to some value even though ts can't see it
-  @Input({required: true}) id!:string;
-  @Input({required: true}) avatar!: string ;
-  @Input({required: true}) name!: string ;
+  // @Input({required: true}) id!:string;
+  // @Input({required: true}) avatar!: string ;
+  // @Input({required: true}) name!: string ;
+  @Input({required: true}) user!: User;
 
   // @output properties
   //we name this output select because we are selecting a user to output info from, in this case, tasks.
@@ -43,12 +50,12 @@ export class UserComponent {
     */
   
   get imgPath(){
-    return 'assets/users/' + this.avatar;
+    return 'assets/users/' + this.user.avatar;
   }
   onSelectUser() {
     //Emit the value from here
     //Access the mitted data by using $event in your html file.
-    this.select.emit(this.id);
+    this.select.emit(this.user.id);
   }
 }
 // export class UserComponent {
