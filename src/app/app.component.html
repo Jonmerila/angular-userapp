@@ -2,6 +2,8 @@
 
 <!-- Instead of using users[0].id, you can use the $event variable, which is a reserved name -->
 <!-- The $event will hold the data that you emitted before -->
+
+<!-- We use $for to output lists and @if to output conditional rendering -->
 <main>
   <ul id="users">
     <!-- Special Angular syntax to dynamically render a list -->
@@ -12,8 +14,20 @@
       <app-user [user]="user" (select)="onSelectUser($event)" />
     </li>
     }
+    <!-- ALT FOR SYNTAX: -->
+    <!-- <li *ngFor="let user of users">
+      <app-user [user]="user" (select)="onSelectUser($event)" />
+    </li> -->
   </ul>
-
-  <app-tasks [name]="selectedUser?.name" />
+  @if(selectedUser){
+  <app-tasks [name]="selectedUser.name" />
+  } @else {
+  <p id="fallback">Select a user to see their tasks.</p>
+  }
+  <!-- ALT SYNTAX FOR IF  -->
+  <!-- <app-tasks *ngIf="selectedUser; else fallback" [name]="selectedUser!.name" />
+   else  -->
+  <!-- <ng-template #fallback>
+    <p id="fallback">Select a user to see their tasks</p>
+  </ng-template> -->
 </main>
-<!-- The "?" is for -->
